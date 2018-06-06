@@ -1,0 +1,53 @@
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .grocery-table {
+    height: 80%;
+    overflow: auto;
+  }
+
+  .grocery-div{
+    height: 90vh;
+    padding: 10px;
+  }
+
+  .mobile-label {
+    display: none;
+  }
+
+  .table-paginator{
+    position:fixed;
+    bottom: 64px;
+    right: 0;
+    width: 100%
+  }
+  
+
+  @media(max-width: 600px) {
+    .mobile-label {
+      width: 120px;
+      display: inline-block;
+          font-weight: bold;
+    }
+  
+    .mat-header-row {
+      display: none;
+    }
+  
+    .mat-row { 
+      flex-direction: column;
+      align-items: start;
+      padding: 0px 24px;
+    }
+
+    .grocery-table{
+      height:75%;
+      overflow: auto;
+    }
+
+    .mat-cell{
+      padding-left: 0px;
+    }
+  }

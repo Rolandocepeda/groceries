@@ -1,0 +1,23 @@
+<div class="grocery-div" fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Search" [formControl]="searchFormControl">
+    <mat-icon matSuffix style="color:gray;">search</mat-icon>
+  </mat-form-field>
+  <mat-table #table class="grocery-table" [dataSource]="dataSource" matSort aria-label="Elements">
+    <!-- Columns -->
+    <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column.key}}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{column?.columnName}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span class="mobile-label">{{column?.columnName}}:</span>
+        <span>{{row[column?.key]}}</span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnIds"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnIds;"></mat-row>
+  </mat-table>
+
+  <mat-paginator class="table-paginator" #paginator [length]="rowLength" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[10, 15, 20]">
+  </mat-paginator>
+</div>

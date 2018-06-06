@@ -1,0 +1,14 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body { margin: 0; }
+
+
+.bottom-toolbar{
+    position: absolute;
+    bottom: 0;
+}
+
+.mat-toolbar {
+    background-color: #ef2e24;
+    color:white;
+}
