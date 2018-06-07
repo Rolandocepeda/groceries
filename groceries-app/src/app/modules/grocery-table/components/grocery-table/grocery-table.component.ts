@@ -29,12 +29,12 @@ export class GroceryTableComponent implements OnInit {
   ];
   columnIds = [];
   tempDataSource;
-
+  totalElements: number;
   constructor(private _groceryTableService: GroceryTableService) { }
 
   ngOnInit() {
     this.initializeDataSource();
-    this.getGroceries();
+    this.getGroceries(0, 20);
     this.onSearch();
     this.columnIds = this.displayedColumns.map(column => column.key);
   }
@@ -51,10 +51,16 @@ export class GroceryTableComponent implements OnInit {
    *
    * @memberof GroceryTableComponent
    */
-  getGroceries(): void {
-    this._groceryTableService.getAll().subscribe((groceries: GroceryTableItem[]) => {
-      this.dataSource = new GroceryTableDataSource(this.paginator, this.sort, groceries);
+  getGroceries(page?: number, size?: number): void {
+    // this._groceryTableService.getAll().subscribe((groceries: GroceryTableItem[]) => {
+    //   this.dataSource = new GroceryTableDataSource(this.paginator, this.sort, groceries);
+    //   this.tempDataSource = this.dataSource.data;
+    // });
+
+    this._groceryTableService.getTablePage(page, size).subscribe((groceries: any) => {
+      this.dataSource = new GroceryTableDataSource(this.paginator, this.sort, groceries.content);
       this.tempDataSource = this.dataSource.data;
+      this.totalElements = groceries.totalElements;
     });
   }
   /**
@@ -97,6 +103,11 @@ export class GroceryTableComponent implements OnInit {
     this._groceryTableService.searchForGrocery(searchValue).subscribe((groceries: GroceryTableItem[]) => {
       this.dataSource = new GroceryTableDataSource(this.paginator, this.sort, groceries);
     });
+  }
+
+  test($event) {
+    console.log($event);
+    this.getGroceries($event.pageIndex, $event.pageSize);
   }
 
 }

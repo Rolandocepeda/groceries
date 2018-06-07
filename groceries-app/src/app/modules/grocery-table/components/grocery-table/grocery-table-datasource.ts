@@ -3,7 +3,6 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
-// TODO: Replace this with your own data model type
 export interface GroceryTableItem {
   id: number;
   description: string;
@@ -44,7 +43,7 @@ export class GroceryTableDataSource extends DataSource<GroceryTableItem> {
     ];
 
     // Set the paginators length
-    this.paginator.length = this.data.length;
+    // this.paginator.length = this.data.length;
 
     return merge(...dataMutations).pipe(map(() => {
       return this.getPagedData(this.getSortedData([...this.data]));
@@ -63,7 +62,8 @@ export class GroceryTableDataSource extends DataSource<GroceryTableItem> {
    */
   private getPagedData(data: GroceryTableItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
+    const splicedData = data.splice(startIndex, this.paginator.pageSize);
+    return splicedData.length > 0 ? splicedData : data;
   }
 
   /**
@@ -77,7 +77,7 @@ export class GroceryTableDataSource extends DataSource<GroceryTableItem> {
 
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
-      return compare(a[this.sort.active], b[this.sort.active], isAsc)
+      return compare(a[this.sort.active], b[this.sort.active], isAsc);
     });
   }
 }
